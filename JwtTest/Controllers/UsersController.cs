@@ -39,10 +39,14 @@ namespace JwtTest.Controllers
         {
             var username = loginRequest.Username;
             var password = loginRequest.Password;
-            var hashedPassword = Encoding.ASCII.GetBytes(password);
             using var sha = SHA256.Create();
-            hashedPassword = sha.ComputeHash(hashedPassword);
-            var passwordString = Encoding.ASCII.GetString(hashedPassword);
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            var builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            var passwordString = builder.ToString();
             var user = _context.Users.FirstOrDefault(x => x.Username == username && x.Password == passwordString);
             if (user == null) return NotFound();
             var payload = new
@@ -65,6 +69,29 @@ namespace JwtTest.Controllers
         [HttpPost]
         public ActionResult Post([FromBody] User request)
         {
+            using var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+            var builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            var passwordString = builder.ToString();
+            var user = new User()
+            {
+                Name = request.Name,
+                Password = passwordString,
+                Username = request.Username
+            };
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return Ok();
+        }
+
+        // PUT api/Users/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] User request)
+        {
             var headers = Request.Headers;
             if (!headers.TryGetValue("Authorization", out var authHeaderString)) return Unauthorized();
             var authHeaders = authHeaderString.ToString().Split(' ');
@@ -84,48 +111,36 @@ namespace JwtTest.Controllers
                 throw;
             }
 
-            var password = Encoding.ASCII.GetBytes(request.Password);
-            using (var sha = SHA256.Create())
+            using var sha = SHA256.Create();
+            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(request.Password));
+            var builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
             {
-                password = sha.ComputeHash(password);
+                builder.Append(bytes[i].ToString("x2"));
             }
-            var user = new User()
-            {
-                Name = request.Name,
-                Password = Encoding.ASCII.GetString(password),
-                Username = request.Username
-            };
-            _context.Users.Add(user);
+            var passwordString = builder.ToString();
+
+            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            user.Name = request.Name;
+            user.Password = passwordString;
+            user.Username = request.Username;
+
+            _context.Users.Update(user);
             _context.SaveChanges();
             return Ok();
         }
 
-        // PUT api/Users/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] User request)
-        {
-            var password = Encoding.ASCII.GetBytes(request.Password);
-            using (var sha = SHA256.Create())
-            {
-                password = sha.ComputeHash(password);
-            }
-            var user = new User()
-            {
-                Name = request.Name,
-                Password = Encoding.ASCII.GetString(password),
-                Username = request.Username
-            };
-            _context.Users.Update(user);
-            _context.SaveChanges();
-        }
-
         // DELETE api/Users/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             var user = _context.Users.Find(id);
+            if (user == null)
+                return NotFound();
+            
             _context.Users.Remove(user);
             _context.SaveChanges();
+            return Ok();
         }
     }
 }
