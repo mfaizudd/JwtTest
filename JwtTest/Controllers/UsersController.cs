@@ -103,7 +103,7 @@ namespace JwtTest.Controllers
                 var jsonPayload = JsonDocument.Parse(payload).RootElement;
                 var expire = jsonPayload.GetProperty("exp").GetDateTime();
                 if (DateTime.UtcNow > expire)
-                    return Unauthorized("Token expired");
+                    return Unauthorized("yoken expired");
             }
             catch (ApplicationException)
             {
