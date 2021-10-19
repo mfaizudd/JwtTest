@@ -999,23 +999,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Bandeng\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Weasel\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\projects\\webs\\JwtTest\\JwtTest\\JwtTest.csproj",
+      "projectUniqueName": "C:\\Users\\Weasel\\Projects\\JwtTest\\JwtTest\\JwtTest.csproj",
       "projectName": "JwtTest",
-      "projectPath": "D:\\projects\\webs\\JwtTest\\JwtTest\\JwtTest.csproj",
-      "packagesPath": "C:\\Users\\Bandeng\\.nuget\\packages\\",
-      "outputPath": "D:\\projects\\webs\\JwtTest\\JwtTest\\obj\\",
+      "projectPath": "C:\\Users\\Weasel\\Projects\\JwtTest\\JwtTest\\JwtTest.csproj",
+      "packagesPath": "C:\\Users\\Weasel\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Weasel\\Projects\\JwtTest\\JwtTest\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Bandeng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Weasel\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1023,8 +1019,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://packages.stride3d.net/nuget": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
@@ -1079,7 +1074,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
