@@ -85,7 +85,7 @@ namespace JwtTest.Controllers
             };
             _context.Users.Add(user);
             _context.SaveChanges();
-            return Ok();
+            return Ok("Sukses");
         }
 
         // PUT api/Users/5
